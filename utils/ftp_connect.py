@@ -9,9 +9,13 @@ hst = os.getenv("CONNECT_IP")
 usr = os.getenv("FTP_USER")
 psswd = os.getenv("FTP_PASS")
 
-ftp = FTP(host=hst)
+def connect_ftp(hst, usr, psswd):
 
-ftp.login(user=usr, passwd=psswd)
+    ftp = FTP(host=hst)
 
-print(ftp.getwelcome())
-print(ftp.pwd()) 
+    ftp.login(user=usr, passwd=psswd)
+
+    print(ftp.getwelcome())
+    print(ftp.pwd())
+
+connect_ftp(hst, usr, psswd)
