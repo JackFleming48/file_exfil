@@ -1,2 +1,0 @@
-u: ftp_uploads
-p: ftpuploader!
