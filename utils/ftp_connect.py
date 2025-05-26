@@ -1,21 +1,22 @@
-import os
+def connect_ftp():
 
-from dotenv import load_dotenv, dotenv_values
-from ftplib import FTP
+    import os
 
-load_dotenv()
+    from dotenv import load_dotenv, dotenv_values
+    from ftplib import FTP
 
-hst = os.getenv("CONNECT_IP")
-usr = os.getenv("FTP_USER")
-psswd = os.getenv("FTP_PASS")
+    load_dotenv()
 
-def connect_ftp(hst, usr, psswd):
+    hst = os.getenv("CONNECT_IP")
+    usr = os.getenv("FTP_USER")
+    psswd = os.getenv("FTP_PASS")
 
     ftp = FTP(host=hst)
 
     ftp.login(user=usr, passwd=psswd)
+    ftp.set_pasv(True)
 
     print(ftp.getwelcome())
     print(ftp.pwd())
+    return ftp
 
-connect_ftp(hst, usr, psswd)
