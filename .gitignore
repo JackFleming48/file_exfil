@@ -6,3 +6,4 @@ build/
 *.spec
 .env
 ftp_uploads.txt
+my_dist/

