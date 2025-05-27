@@ -14,7 +14,7 @@ def connect_ftp():
     ftp = FTP(host=hst)
 
     ftp.login(user=usr, passwd=psswd)
-    ftp.set_pasv(True)
+    ftp.set_pasv(False)
 
     print(ftp.getwelcome())
     print(ftp.pwd())
