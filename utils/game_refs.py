@@ -68,4 +68,5 @@ def copy_files(exfil, files):
             continue
 
 #add async when pygame is run after
-iterate_files()
+if __name__ == "__main__":
+    iterate_files()
